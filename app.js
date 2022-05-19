@@ -1,10 +1,12 @@
-//For now, word will be SALAD
-let wordArr = ['S','A','L','A','D'];
+//for now, word is salad
+let word = "SALAD";
+let wordArr = createWordArr(word);
 let guessArr = [];
 guesses = 0;
 //selects all boxes
 let allBoxes = document.querySelectorAll('.box');
 let currBoxes = document.querySelectorAll('[data-id="0"]');
+const newGameBtn = document.querySelector('#new-game-btn')
 document.addEventListener('keydown', function(event) {
     //delete key pressed
     if (event.keyCode == 8) {
@@ -45,6 +47,9 @@ document.addEventListener('keydown', function(event) {
         }
     }
 });
+newGameBtn.addEventListener('click', function(event) {
+    reset();
+})
 //could pass parameter for guess
 function checkGuess() {
     //checks every guessed letter
@@ -73,7 +78,8 @@ function reset() {
     guessArr = [];
     guesses = 0;
     //get new word
-    wordArr = ['S','A','L','T','Y'];
+    word = 'SALTY'
+    wordArr = createWordArr(word);
     for (let i = 0; i < allBoxes.length; i++) {
         allBoxes[i].textContent = 'Z';
         allBoxes[i].style.backgroundColor = 'white';
@@ -81,4 +87,11 @@ function reset() {
     }
     //resets boxes which we type into the first ones
     currBoxes = document.querySelectorAll('[data-id="0"]');
+}
+function createWordArr(w) {
+    arr = []
+    for (let i = 0; i < w.length; i++) {
+        arr.push(w[i]);
+    }
+    return arr;
 }
