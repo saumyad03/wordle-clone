@@ -32,6 +32,7 @@ document.addEventListener('keydown', function(event) {
     }
     //if enter key is pressed
     if (event.keyCode == 13) {
+        console.log(word);
         if (guessArr.length >= 5) {
             checkGuess();
             //checks if win
@@ -40,9 +41,17 @@ document.addEventListener('keydown', function(event) {
                 reset();
             } else {
                 guesses += 1;
-                //selects next 5 boxes (distinguished based on guessCount)
-                let queryString = '[data-id="' + guesses +'"]'
-                currBoxes = document.querySelectorAll(queryString);
+                //loss code
+                if (guesses >= 6) {
+                    alert('you lost');
+                    reset();
+                } 
+                //next guess code
+                else {
+                    //selects next 5 boxes (distinguished based on guessCount)
+                    let queryString = '[data-id="' + guesses +'"]'
+                    currBoxes = document.querySelectorAll(queryString);
+                }
             }
             guessArr = [];
         }
@@ -73,6 +82,10 @@ function checkGuess() {
         //handles yellows and grays
         if (cloneMap.has(guessArr[i]) && cloneMap.get(guessArr[i]) > 0) {
             currBoxes[i].style.backgroundColor = 'yellow';
+            let occ = cloneMap.get(guessArr[i]);
+            occ -= 1;
+            cloneMap.set(guessArr[i], occ);
+
         } else {
             currBoxes[i].style.backgroundColor = 'gray';
         }
