@@ -4,6 +4,8 @@ let wordArr = createWordArr(word);
 let wordMap = createWordMap(wordArr);
 let guessArr = [];
 guesses = 0;
+const blankColor = 'black';
+const textColor = ' #36454F'
 //selects all boxes
 let allBoxes = document.querySelectorAll('.box');
 let currBoxes = document.querySelectorAll('[data-id="0"]');
@@ -13,9 +15,9 @@ document.addEventListener('keydown', function(event) {
     if (event.keyCode == 8) {
         //only removes letter if there are letters to be removed
         if (guessArr.length > 0) {
-            //remove letter visibly (placeholder letter that is white)
+            //remove letter visibly (placeholder letter that is black)
             currBoxes[guessArr.length - 1].textContent = 'Z';
-            currBoxes[guessArr.length - 1].style.color = 'white';
+            currBoxes[guessArr.length - 1].style.color = blankColor; //changed
             guessArr.pop();
         }
     }
@@ -27,7 +29,7 @@ document.addEventListener('keydown', function(event) {
             guessArr.push(guessedLetter);
             //shows letter visibly
             currBoxes[guessArr.length - 1].textContent = guessedLetter;
-            currBoxes[guessArr.length - 1].style.color = 'black';
+            currBoxes[guessArr.length - 1].style.color = textColor; //changed
         }
     }
     //if enter key is pressed
@@ -108,8 +110,8 @@ function reset() {
     wordArr = createWordArr(word);
     for (let i = 0; i < allBoxes.length; i++) {
         allBoxes[i].textContent = 'Z';
-        allBoxes[i].style.backgroundColor = 'white';
-        allBoxes[i].style.color = 'white';
+        allBoxes[i].style.backgroundColor = blankColor; //changed
+        allBoxes[i].style.color = blankColor; //changed
     }
     //resets boxes which we type into the first ones
     currBoxes = document.querySelectorAll('[data-id="0"]');
