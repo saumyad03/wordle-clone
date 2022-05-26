@@ -3,14 +3,20 @@ let word = words[Math.floor(Math.random() * words.length)];
 let wordArr = createWordArr(word);
 let wordMap = createWordMap(wordArr);
 let guessArr = [];
+let gameOver = false;
 guesses = 0;
 const blankColor = 'black';
 const textColor = ' #36454F'
+const resultDisplay = document.querySelector('#result');
 //selects all boxes
 let allBoxes = document.querySelectorAll('.box');
 let currBoxes = document.querySelectorAll('[data-id="0"]');
 const newGameBtn = document.querySelector('#new-game-btn')
 document.addEventListener('keydown', function(event) {
+    //if game is over, user can't do anything except play new game
+    if (gameOver == true) {
+        return;
+    }
     //delete key pressed
     if (event.keyCode == 8) {
         //only removes letter if there are letters to be removed
@@ -39,14 +45,14 @@ document.addEventListener('keydown', function(event) {
             checkGuess();
             //checks if win
             if (compareWordArrays(guessArr, wordArr)) {
-                alert('you won');
-                reset();
+                resultDisplay.textContent = "You won";
+                gameOver = true;
             } else {
                 guesses += 1;
                 //loss code
                 if (guesses >= 6) {
-                    alert('you lost');
-                    reset();
+                    resultDisplay.textContent = "You lost";
+                    gameOver = true;
                 } 
                 //next guess code
                 else {
@@ -61,6 +67,14 @@ document.addEventListener('keydown', function(event) {
 });
 newGameBtn.addEventListener('click', function(event) {
     reset();
+})
+//When hover over, new game button turns different color
+newGameBtn.addEventListener('mouseover', (e) => {
+    e.target.style.background = 'gray';
+})
+//When unhover over, new game button reverts back to original color
+newGameBtn.addEventListener('mouseout', (e) => {
+    e.target.style.background = 'black';
 })
 //could pass parameter for guess
 function checkGuess() {
@@ -105,6 +119,7 @@ function compareWordArrays(guess, word) {
 function reset() {
     guessArr = [];
     guesses = 0;
+    gameOver = false;
     //get new word
     word = words[Math.floor(Math.random() * words.length)];
     wordArr = createWordArr(word);
@@ -115,6 +130,8 @@ function reset() {
     }
     //resets boxes which we type into the first ones
     currBoxes = document.querySelectorAll('[data-id="0"]');
+    //resets results display to empty
+    resultDisplay.textContent = '';
 }
 function createWordArr(w) {
     arr = []
