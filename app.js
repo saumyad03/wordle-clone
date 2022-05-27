@@ -134,6 +134,8 @@ function reset() {
     currBoxes = document.querySelectorAll('[data-id="0"]');
     //resets results display to empty
     resultDisplay.textContent = '';
+    //defocuses from all elements so enter doesn't do anything
+    newGameBtn.blur();
 }
 function createWordArr(w) {
     arr = []
