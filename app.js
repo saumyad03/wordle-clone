@@ -45,13 +45,15 @@ document.addEventListener('keydown', function(event) {
             checkGuess();
             //checks if win
             if (compareWordArrays(guessArr, wordArr)) {
-                resultDisplay.textContent = "You won";
+                resultDisplay.textContent = "YOU WON";
+                resultDisplay.style.color = "green"
                 gameOver = true;
             } else {
                 guesses += 1;
                 //loss code
                 if (guesses >= 6) {
-                    resultDisplay.textContent = "You lost";
+                    resultDisplay.textContent = "YOU LOST, the word was " + word;
+                    resultDisplay.style.color = "red"
                     gameOver = true;
                 } 
                 //next guess code
@@ -74,7 +76,7 @@ newGameBtn.addEventListener('mouseover', (e) => {
 })
 //When unhover over, new game button reverts back to original color
 newGameBtn.addEventListener('mouseout', (e) => {
-    e.target.style.background = 'black';
+    e.target.style.background = '#36454F';
 })
 //could pass parameter for guess
 function checkGuess() {
