@@ -40,7 +40,6 @@ document.addEventListener('keydown', function(event) {
     }
     //if enter key is pressed
     if (event.keyCode == 13) {
-        console.log(word);
         if (guessArr.length >= 5) {
             checkGuess();
             //checks if win
